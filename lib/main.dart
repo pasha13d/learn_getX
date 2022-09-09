@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: const Text("Dialog"),),
+        appBar: AppBar(title: const Text("Bottom Sheet"),),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,19 +25,41 @@ class MyApp extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: (() {
-                  Get.defaultDialog(
-                    title: "Dialog Title",
-                    titleStyle: TextStyle(fontSize: 25),
-                    middleText: "This is middle text",
-                    radius: 5,
-                    textCancel: "Cancel",
-                    textConfirm: "Ok",
-                    /// it won't close the dialog while clicking on outside
-                    /// of the dialog. Defualt value is TRUE
-                    barrierDismissible: false,
+                  Get.bottomSheet(
+                    Container(
+                      child: Wrap(
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(Icons.wb_sunny_outlined),
+                            title: Text("Light Theme"),
+                            onTap: (() {
+                              Get.changeTheme(ThemeData.light());
+                            }),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.wb_sunny),
+                            title: Text("Dark Theme"),
+                            onTap: (() {
+                              Get.changeTheme(ThemeData.dark());
+                            }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /// whole page bg color
+                    // barrierColor:
+                      backgroundColor: Colors.teal,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(
+                        color: Colors.white,
+                        style: BorderStyle.solid,
+                        width: 2.0,
+                      )
+                    )
                   );
                 }),
-                child: const Text("Dialog")
+                child: const Text("Bottom Sheet")
               ),
             ],
           ),
