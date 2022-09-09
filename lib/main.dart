@@ -5,11 +5,17 @@ import 'package:learn_getx/pages/not_found_page.dart';
 import 'package:learn_getx/pages/settings_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  var count = 0.obs;
+
+  void increment() {
+    count++;
+  }
 
   // This widget is the root of your application.
   @override
@@ -38,6 +44,18 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Obx(() =>
+                Text(
+                  "Count value is $count",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: (() {
+                  increment();
+                }),
+                child: const Text("Increment")
+              ),
               ElevatedButton(
                 onPressed: (() {
                   // Get.toNamed("/home");
