@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_getx/models/student_model.dart';
 import 'package:learn_getx/pages/home_page.dart';
 import 'package:learn_getx/pages/not_found_page.dart';
 import 'package:learn_getx/pages/settings_page.dart';
+
+import 'controllers/student_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,11 +14,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  var count = 0.obs;
-
-  void increment() {
-    count++;
-  }
+  StudentController studentController = Get.put(StudentController());
 
   // This widget is the root of your application.
   @override
@@ -46,15 +45,15 @@ class MyApp extends StatelessWidget {
             children: [
               Obx(() =>
                 Text(
-                  "Count value is $count",
+                  "His name is ${studentController.student.value.name}",
                   style: TextStyle(fontSize: 20.0),
                 ),
               ),
               ElevatedButton(
                 onPressed: (() {
-                  increment();
+                  studentController.convertUpperCase();
                 }),
-                child: const Text("Increment")
+                child: const Text("UPPERCASE")
               ),
               ElevatedButton(
                 onPressed: (() {
