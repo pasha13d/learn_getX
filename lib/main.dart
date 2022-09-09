@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: const Text("Snackbar"),),
+        appBar: AppBar(title: const Text("Dialog"),),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,15 +25,19 @@ class MyApp extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: (() {
-                  Get.snackbar(
-                    "Snack bar title",
-                    "Message",
-                    colorText: Colors.white,
-                    backgroundColor: Colors.black,
-                    snackPosition: SnackPosition.BOTTOM,
+                  Get.defaultDialog(
+                    title: "Dialog Title",
+                    titleStyle: TextStyle(fontSize: 25),
+                    middleText: "This is middle text",
+                    radius: 5,
+                    textCancel: "Cancel",
+                    textConfirm: "Ok",
+                    /// it won't close the dialog while clicking on outside
+                    /// of the dialog. Defualt value is TRUE
+                    barrierDismissible: false,
                   );
                 }),
-                child: const Text("Snackbar")
+                child: const Text("Dialog")
               ),
             ],
           ),
