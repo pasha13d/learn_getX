@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_getx/controllers/increment_controller.dart';
 import 'package:learn_getx/models/student_model.dart';
 import 'package:learn_getx/pages/home_page.dart';
 import 'package:learn_getx/pages/not_found_page.dart';
@@ -14,7 +15,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  StudentController studentController = Get.put(StudentController());
+  // StudentController studentController = Get.put(StudentController());
 
   // This widget is the root of your application.
   @override
@@ -43,17 +44,20 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Obx(() =>
-                Text(
-                  "His name is ${studentController.student.value.name}",
-                  style: TextStyle(fontSize: 20.0),
-                ),
+              GetX<IncrementController>(
+                init: IncrementController(),
+                builder: (controller) {
+                  return Text(
+                    "The value is ${controller.count}",
+                    style: TextStyle(fontSize: 20.0),
+                  );
+                },
               ),
               ElevatedButton(
                 onPressed: (() {
-                  studentController.convertUpperCase();
+                  Get.find<IncrementController>().increment();
                 }),
-                child: const Text("UPPERCASE")
+                child: const Text("Increment")
               ),
               ElevatedButton(
                 onPressed: (() {
