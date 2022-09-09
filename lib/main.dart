@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_getx/pages/home_page.dart';
+import 'package:learn_getx/pages/not_found_page.dart';
+import 'package:learn_getx/pages/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +15,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'GetX',
+      title: 'Navigation',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      initialRoute: "/",
+      defaultTransition: Transition.zoom,
+      getPages: [
+        GetPage(name: "/", page: () => MyApp()),
+        GetPage(name: "/home", page: () => HomePage()),
+        GetPage(
+          name: "/settings",
+          page: () => SettingsPage(),
+          transition: Transition.leftToRight,
+        ),
+      ],
+      unknownRoute: GetPage(name: "/notfound", page: () => NotFoundPage()),
       home: Scaffold(
-        appBar: AppBar(title: const Text("Bottom Sheet"),),
+        appBar: AppBar(title: const Text("Navigation"),),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,41 +40,10 @@ class MyApp extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: (() {
-                  Get.bottomSheet(
-                    Container(
-                      child: Wrap(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.wb_sunny_outlined),
-                            title: Text("Light Theme"),
-                            onTap: (() {
-                              Get.changeTheme(ThemeData.light());
-                            }),
-                          ),
-                          ListTile(
-                            leading: Icon(Icons.wb_sunny),
-                            title: Text("Dark Theme"),
-                            onTap: (() {
-                              Get.changeTheme(ThemeData.dark());
-                            }),
-                          ),
-                        ],
-                      ),
-                    ),
-                    /// whole page bg color
-                    // barrierColor:
-                      backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(
-                        color: Colors.white,
-                        style: BorderStyle.solid,
-                        width: 2.0,
-                      )
-                    )
-                  );
+                  // Get.toNamed("/home");
+                  Get.toNamed("/home?channel=Notorious&context=CM&a=10");
                 }),
-                child: const Text("Bottom Sheet")
+                child: const Text("Home")
               ),
             ],
           ),
