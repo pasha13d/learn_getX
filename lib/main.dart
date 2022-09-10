@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GetX<IncrementController>(
+              GetBuilder<IncrementController>(
                 init: IncrementController(),
                 builder: (controller) {
                   return Text(
