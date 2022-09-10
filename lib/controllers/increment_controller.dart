@@ -7,4 +7,19 @@ class IncrementController extends GetxController {
     count++;
     update();
   }
+
+  void cleanUpTask() {
+    print("Clean up task");
+  }
+
+  @override
+  void onInit() {
+    print("Init called");
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }
