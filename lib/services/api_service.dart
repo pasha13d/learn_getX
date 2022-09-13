@@ -6,7 +6,8 @@ class AppService {
   static var client = http.Client();
 
   static Future<List<Product>> fetchProducts() async {
-    var uri = 'https://makeup-api.herokuapp.com/api/v1/products.json?brand=marienatie';
+    // var uri = 'https://makeup-api.herokuapp.com/api/v1/products.json?brand=colourpop';
+    var uri = 'http://makeup-api.herokuapp.com/api/v1/products.json';
     var res = await client.get(Uri.parse(uri));
     var jsonString;
     if(res.statusCode == 200) {

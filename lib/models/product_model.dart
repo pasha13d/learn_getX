@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final product = productFromJson(jsonString);
+
 import 'dart:convert';
 
 List<Product> productFromJson(String str) => List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
@@ -6,7 +10,7 @@ String productToJson(List<Product> data) => json.encode(List<dynamic>.from(data.
 
 class Product {
   Product({
-    required this.id,
+    this.id,
     this.brand,
     this.name,
     this.price,
@@ -27,7 +31,7 @@ class Product {
     this.productColors,
   });
 
-  int id;
+  int? id;
   String? brand;
   String? name;
   String? price;
@@ -40,7 +44,7 @@ class Product {
   dynamic? rating;
   String? category;
   String? productType;
-  List<TagList>? tagList;
+  List<String>? tagList;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? productApiUrl;
@@ -61,7 +65,7 @@ class Product {
     rating: json["rating"],
     category: json["category"],
     productType: json["product_type"],
-    tagList: List<TagList>.from(json["tag_list"].map((x) => tagListValues.map![x])),
+    tagList: List<String>.from(json["tag_list"].map((x) => x)),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     productApiUrl: json["product_api_url"],
@@ -83,7 +87,7 @@ class Product {
     "rating": rating,
     "category": category,
     "product_type": productType,
-    "tag_list": List<dynamic>.from(tagList!.map((x) => tagListValues.reverse[x])),
+    "tag_list": List<dynamic>.from(tagList!.map((x) => x)),
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
     "product_api_url": productApiUrl,
@@ -110,27 +114,4 @@ class ProductColor {
     "hex_value": hexValue,
     "colour_name": colourName,
   };
-}
-
-enum TagList { PURPICKS, CERT_CLEAN, VEGAN, GLUTEN_FREE }
-
-final tagListValues = EnumValues({
-  "CertClean": TagList.CERT_CLEAN,
-  "Gluten Free": TagList.GLUTEN_FREE,
-  "purpicks": TagList.PURPICKS,
-  "Vegan": TagList.VEGAN
-});
-
-class EnumValues<T> {
-  Map<String, T>? map;
-  Map<T, String>? reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map!.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap!;
-  }
 }
